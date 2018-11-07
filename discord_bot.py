@@ -35,14 +35,22 @@ async def square(number):
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=Game(name="with humans"))
+    await client.change_presence(game=Game(name=" with my homework"))
     print("Logged in as " + client.user.name)
 
+@client.command()
+async def bitcoin():
+    url = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
+    async with aiohttp.ClientSession() as session:  
+        raw_response = await session.get(url)
+        response = await raw_response.text()
+        response = json.loads(response)
+        await client.say("Current bitcoin price is: $" + response['bpi']['USD']['rate'])
 
 @client.command()
 async def lastfm():
     url = 'http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=sh4dowjoez&api_key=b72ae44e3bf067b7ae00a4c6f0eabbd2&limit=1&format=json'
-    async with aiohttp.ClientSession() as session:  # Async HTTP request
+    async with aiohttp.ClientSession() as session:  
         raw_response = await session.get(url)
         response = await raw_response.text()
         response = json.loads(response)
