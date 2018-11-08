@@ -6,7 +6,7 @@ import discord
 from discord import Game
 from discord.ext.commands import Bot
 
-TOKEN = 'XXXX'
+TOKEN = 'NTA3MzI2OTM5MDc4NDU5Mzky.DrvFWw.uD_q7L_r9OUmyqynYfauqGP02TY'
 
 BOT_PREFIX = ("!")
 client = Bot(command_prefix=BOT_PREFIX)
@@ -35,7 +35,7 @@ async def square(number):
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=Game(name=" with my homework"))
+    await client.change_presence(game=Game(name="last.fm/user/sh4dowjoez"))
     print("Logged in as " + client.user.name)
 
 @client.command()
@@ -54,15 +54,10 @@ async def lastfm():
         raw_response = await session.get(url)
         response = await raw_response.text()
         response = json.loads(response)
-        await client.say("Joe is currently listening to: " + response['recenttracks']['track']['url'])
-
-@client.event
-async def on_ready():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
+        await client.say("Joe is currently listening to: " + response['recenttracks']['url'])
 
 client.run(TOKEN)
+client.on_ready
 
 
 
