@@ -25,13 +25,33 @@ async def eight_ball(context):
         'not sure.',
         'it is likely.',
         'yeah. 100% yeah.',
+        'ask me again later',
+        'hahahahahahaha',
+        '??????????????'
     ]
-    await bot.say(random.choice(possible_responses) + ", " + context.message.author.mention)
+    await bot.say(random.choice(possible_responses) + " " + context.message.author.mention)
 
 @bot.command()
-async def square(number):
-    squared_value = int(number) * int(number)
-    await bot.say(str(number) + " squared is " + str(squared_value))
+async def rate(context):
+    print(context.message)
+    possible_responses = [
+        "0/10. nah.",
+        "3/10. very bad.",
+        "5/10. average!",
+        "7/10. good!",
+        "8/10. very good!",
+        "9/10. great!",
+        "10/10. masterpiece!"
+    ]
+    await bot.say(context.message.author.message + " is a " + random.choice(possible_responses))
+
+@bot.command()
+async def sixstandard():
+    await bot.say("Hello how are you today! Yes of course! One moment please! Thank you for waiting! Thank you very much! We hope to see you soon! **Great Mall, great products, great people!**")
+
+@bot.command()
+async def bruh(context):
+    await bot.say("bruh")
 
 @bot.command()
 async def bitcoin():
@@ -49,14 +69,13 @@ async def lastfm():
         raw_response = await session.get(url)
         response = await raw_response.text()
         response = json.loads(response)
-        await bot.say("joe is currently listening to: " + response['recenttracks']['url'])
+        resp = response['recenttracks']['track'][0]
+        await bot.say("joebot is currently listening to: " + resp['artist']['#text'] + " - " + resp['name'] + ". Listen to this track at " + resp['url'])
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(game=Game(name="last.fm/user/sh4dowjoez"))
+    await bot.change_presence(game=Game(name="instagr.am/joeucsf"))
     print("Logged in as " + bot.user.name)
-
-
 
 class VoiceEntry:
     def __init__(self, message, player):
